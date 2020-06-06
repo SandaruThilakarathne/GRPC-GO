@@ -1,0 +1,141 @@
+syntax = "proto3";
+
+package greet;
+option go_package="greetpb";
+
+message Greeting {
+    string first_name=1;
+    string last_name=2;
+}
+
+
+message GreetRequest {
+    Greeting greeting = 1;
+}
+
+
+message GreetResponse {
+    string result = 1;
+}
+
+
+// Unery Exerice
+message GreetSum {
+    int64 first_number=1;
+    int64 last_number=2;
+}
+
+
+message GreetSumRequest {
+    GreetSum greetsum = 1;
+}
+
+message GreetSumResponse {
+    int64 result = 1;
+}
+
+// Greet Many times
+message GreetManyTimesRequest {
+    Greeting greeting = 1;
+}
+
+message GreetManyTimesResponse {
+    string result = 1;
+}
+
+// Server Streaming Exerice
+message PrimeNumberDecompositionRequest {
+    int64 number = 1;
+}
+
+message PrimeNumberDecompositionResponse {
+    int64 prime_factor = 1;
+}
+
+// Client Streaming
+message LongGreetRequest {
+    Greeting greeting = 1;
+}
+
+message LongGreetResponse {
+    string result = 1;
+}
+
+// Client Steaming Exerice
+message AverageRequest {
+    int32 number = 1;
+}
+
+message AverageResponse {
+    double average = 1;
+}
+
+// Bi Di
+message GreetEveryoneRequest {
+    Greeting greeting = 1;
+}
+
+message GreetEvryonResponse {
+    string result = 1;
+}
+
+// Bi Di Exerice
+message MaxNumberRequest {
+    int32 number = 1;
+}
+
+message MaxNumberResponse {
+    int32 result = 1;
+}
+
+message SquareRootRequest {
+    int32 number = 1;
+}
+
+message SquareRootResponse{
+    double number_root =1;
+}
+
+// greet with deadline request
+message GreetWithDeadlineRequest {
+    Greeting greeting = 1;
+}
+
+message GreetWithDeadlineResponse {
+    string result = 1;
+}
+
+service GreetService {
+    // Unary
+    rpc Greet(GreetRequest) returns (GreetResponse) {};
+
+    // Unary Exerice
+    rpc GreetCalculator(GreetSumRequest) returns (GreetSumResponse) {}
+
+    // Server Streaming
+    rpc GreetManyTimes(GreetManyTimesRequest) returns (stream GreetManyTimesResponse) {}
+
+    // Server Streaming Exerice
+    rpc PrimeNumberDecomposition (PrimeNumberDecompositionRequest) returns (stream PrimeNumberDecompositionResponse) {}
+
+    // Client Streaming
+    rpc LongGreet (stream LongGreetRequest) returns (LongGreetResponse) {}
+
+    // Client Streaming Exerice
+    rpc Average (stream AverageRequest) returns (AverageResponse) {}
+
+    // BiDi Streaming
+    rpc GreetEveryone (stream GreetEveryoneRequest) returns (stream GreetEvryonResponse) {}
+
+    // BiDi Streaming Exerice
+    rpc MaxNumber (stream MaxNumberRequest) returns (stream MaxNumberResponse) {}
+
+    // Error Handling
+    // this RPC will throw an exception if the number is negative number
+    // The error being send is of type INVALID_ARGUMENT
+    rpc SquareRoot(SquareRootRequest) returns (SquareRootResponse) {}
+
+    // Unary greet with deadline
+    rpc GreetWithDeadline(GreetWithDeadlineRequest) returns (GreetWithDeadlineResponse) {};
+}
+
